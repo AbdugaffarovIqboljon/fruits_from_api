@@ -1,15 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import '../../../../core/constants/strings.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/fruit.dart';
 import '../../domain/usecases/get_fruits.dart';
 import 'fruit_event.dart';
 import 'fruit_state.dart';
-
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String NETWORK_FAILURE_MESSAGE = 'Network Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 
 class FruitBloc extends Bloc<FruitEvent, FruitState> {
   final GetFruits getFruits;
@@ -37,15 +34,14 @@ class FruitBloc extends Bloc<FruitEvent, FruitState> {
   }
 
   String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
-      case NetworkFailure:
-        return NETWORK_FAILURE_MESSAGE;
-      case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
-      default:
-        return 'Unexpected error';
+    if (failure is ServerFailure) {
+      return AppStrings.serverFailureMessage;
+    } else if (failure is NetworkFailure) {
+      return AppStrings.networkFailureMessage;
+    } else if (failure is CacheFailure) {
+      return AppStrings.cacheFailureMessage;
+    } else {
+      return AppStrings.unexpectedErrorMessage;
     }
   }
 }

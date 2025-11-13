@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/strings.dart';
 import '../../domain/entities/fruit.dart';
 
 class DetailPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class DetailPage extends StatelessWidget {
           ),
         ),
         title: const Text(
-          "All Specifications",
+          AppStrings.allSpecifications,
           style: TextStyle(
             color: Colors.black,
             fontSize: 25,
@@ -62,7 +63,10 @@ class DetailPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   fruit.name,
-                  style: const TextStyle(fontSize: 28),
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Card(
@@ -73,39 +77,39 @@ class DetailPage extends StatelessWidget {
                     child: Column(
                       children: [
                         InformationWidget(
-                          firstText: "Name : ",
+                          firstText: AppStrings.name,
                           secondText: fruit.name,
                         ),
                         InformationWidget(
-                          firstText: "Genus: ",
+                          firstText: AppStrings.genus,
                           secondText: fruit.genus,
                         ),
                         InformationWidget(
-                          firstText: "Family: ",
+                          firstText: AppStrings.family,
                           secondText: fruit.family,
                         ),
                         InformationWidget(
-                          firstText: "Order: ",
+                          firstText: AppStrings.order,
                           secondText: fruit.order,
                         ),
                         InformationWidget(
-                          firstText: "Carbohydrates: ",
+                          firstText: AppStrings.carbohydrates,
                           secondText: fruit.nutrition.carbohydrates.toString(),
                         ),
                         InformationWidget(
-                          firstText: "Sugar: ",
+                          firstText: AppStrings.sugar,
                           secondText: fruit.nutrition.sugar.toString(),
                         ),
                         InformationWidget(
-                          firstText: "Fat: ",
+                          firstText: AppStrings.fat,
                           secondText: fruit.nutrition.fat.toString(),
                         ),
                         InformationWidget(
-                          firstText: "Calories: ",
+                          firstText: AppStrings.calories,
                           secondText: fruit.nutrition.calories.toString(),
                         ),
                         InformationWidget(
-                          firstText: "Protein: ",
+                          firstText: AppStrings.protein,
                           secondText: fruit.nutrition.protein.toString(),
                         ),
                       ],
@@ -133,22 +137,28 @@ class InformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          firstText,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        Text(
-          secondText.isNotEmpty ? secondText : "No Information",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: secondText.isEmpty ? Colors.grey : null,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            firstText,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-        ),
-      ],
+          Flexible(
+            child: Text(
+              secondText.isNotEmpty ? secondText : AppStrings.noInformation,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: secondText.isEmpty ? Colors.grey : null,
+              ),
+              textAlign: TextAlign.end,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

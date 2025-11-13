@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../core/constants/strings.dart';
 import '../bloc/fruit_bloc.dart';
 import '../bloc/fruit_event.dart';
 import '../bloc/fruit_state.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         forceMaterialTransparency: true,
         title: const Text(
-          'Fruits',
+          AppStrings.appTitle,
           style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.w600,
@@ -46,22 +47,28 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    state.message,
-                    style: const TextStyle(fontSize: 18),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      state.message,
+                      style: const TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       context.read<FruitBloc>().add(GetFruitsEvent());
                     },
-                    child: const Text('Retry'),
+                    child: const Text(AppStrings.retry),
                   ),
                 ],
               ),
             );
           }
-          return const Center(child: Text('Something went wrong'));
+          return Center(
+            child: Text(AppStrings.unexpectedErrorMessage),
+          );
         },
       ),
     );
